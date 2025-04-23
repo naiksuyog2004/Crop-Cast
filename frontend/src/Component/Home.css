@@ -1,0 +1,383 @@
+/* Reset some basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4ed;
+    color: #333;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('E:\React native course\cropcast-app\frontend\src\Images\background.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px);
+    z-index: -1;
+}
+
+/* Container for the entire Home Page */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 0 0 2rem;
+    text-align: center;
+
+}
+
+.home-container .side-component {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    margin: 10px;
+
+}
+
+.home-container .side-component .prediction {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    margin-left: 2rem;
+    background-color: #e5ebd8;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    top: 0;
+    padding: 1rem;
+    /* margin-left: 2rem; */
+    background-color: #e5ebd8;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 100%;
+    position: sticky;
+    /* justify-content: safe; */
+    /* text-align: left; */
+    z-index: 1;
+}
+
+/* Header Styling */
+.header h1 {
+    font-size: 2.5rem;
+    color: #4a7c59;
+    margin-bottom: 0.5rem;
+    left: 0%;
+}
+
+.header .nav-components {
+    top: 1.5rem;
+    /* position: absolute; */
+    justify-content: center;
+    text-align: center;
+    margin-left: auto;
+}
+
+.header .nav-components ul {
+
+    display: flex;
+    justify-content: space-around;
+    /* Space out items evenly */
+    list-style: none;
+    /* Remove bullet points */
+    padding: 10px 20px;
+    margin: 0;
+    margin-top: 10px;
+}
+
+.header .nav-components ul li {
+    list-style: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 3rem;
+
+}
+
+.header .nav-components ul li a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Search Input and Button */
+.header .search-container {
+    margin-top: 0.5rem;
+    /* display: flex; */
+    right: 0%;
+    margin-left: auto;
+}
+
+.header .symbol {
+    padding: 1rem;
+    outline: 2px solid whitesmoke;
+    margin-left: 10px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+}
+
+.crop-input {
+    padding: 0.8rem;
+    width: 200px;
+    border: 1px solid #4a7c59;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    margin-right: 0.5rem;
+}
+
+.search-button {
+    padding: 0.8rem 1.5rem;
+    background-color: #4a7c59;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #365942;
+}
+
+/* Weather Info Section */
+.home-container .side-component .weather-info {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #e5ebd8;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 25%;
+    margin-left: 1.5rem;
+    opacity: 0.87;
+
+}
+
+.side-component .vertical-line {
+    width: 10px;
+    /* Thickness of the line */
+    height: 80vh;
+    /* Full vertical height */
+    background-image: url("https://t3.ftcdn.net/jpg/02/71/72/06/360_F_271720694_xeOnMuwr2oiP9PG7yn8cKet1upl76QOu.jpg");
+    /* Sugarcane-themed image */
+    background-size: cover;
+    /* Ensure the image covers the entire line */
+    background-repeat: no-repeat;
+    /* Prevent tiling */
+    background-position: center;
+    /* Center the image */
+    margin: 0 auto;
+    /* Center the line horizontally */
+    border-radius: 5px;
+    /* Add rounded edges */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    /* Optional shadow for design */
+    margin-left: 20px;
+}
+
+.heading,
+.content {
+    text-align: center;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+.newtext {
+    margin-top: 5%;
+    text-align: center;
+    background-color: #e0c96d;
+    padding: 20px;
+    border-radius: 20px;
+    opacity: 0.8;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.text {
+    justify-content: center;
+    margin-top: 150px;
+    text-align: center;
+    background-color: #e0c96d;
+    padding: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-radius: 20px;
+    opacity: 0.8;
+}
+
+.heading {
+    font-size: 2.5rem;
+    color: #2e3b4e;
+    /* Dark blue color */
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease-out forwards 0.5s;
+
+    width: 80%;
+    justify-content: center;
+    margin-left: 120px;
+    font-family: Georgia, serif;
+}
+
+.content {
+    font-size: 1.25rem;
+    color: #555;
+    /* Lighter text for content */
+    opacity: 0;
+    animation: fadeInUp 1.5s ease-out forwards 1s;
+    justify-content: center;
+    /* margin-left: 10px; */
+
+
+}
+
+.sidebar {
+    width: auto;
+    /* Fixed width for the sidebar */
+    /* background-color: #fff; */
+    /* White background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Add shadow for depth */
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Center content vertically */
+    align-items: center;
+    /* Center content horizontally */
+    margin-right: auto;
+    /* Push the sidebar to the left */
+    margin-left: 10px;
+
+}
+
+
+
+
+/* Animation for fade-in effect */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.side-component .weather-info {
+    width: 10%;
+}
+
+.weather-info h2 {
+    color: #4a7c59;
+    margin-bottom: 1rem;
+}
+
+.weather-info p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+
+
+
+
+/* Dropdown container */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button styling */
+.dropdown-button {
+    /* background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s; */
+    color: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    /* margin-right: 3rem; */
+    border: none;
+    background-color: inherit;
+}
+
+
+
+.dropdown-button:hover::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -5px;
+    /* Distance below the text */
+    left: 10%;
+    width: 75%;
+    /* Length of the underline */
+    height: 3px;
+    /* Thickness of the underline */
+    background-color: rgb(132, 249, 15);
+    /* Matches button text color */
+    border-radius: 2px;
+    /* Rounded underline for better design */
+    transition: width 0.3s ease-in-out;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    z-index: 1;
+    min-width: 160px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+/* Dropdown menu items */
+.dropdown-menu li {
+    border-bottom: 1px solid #f1f1f1;
+    justify-content: space-between;
+}
+
+.dropdown-menu li:last-child {
+    border-bottom: none;
+}
+
+.dropdown-menu li a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+    color: #4CAF50;
+}
+
+/* Close dropdown when clicking outside */

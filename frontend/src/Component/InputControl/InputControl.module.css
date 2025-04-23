@@ -1,0 +1,60 @@
+/* InputControl.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Slightly tighter spacing for compact layout */
+  width: 100%; /* Full width for responsive design */
+}
+
+.label {
+  font-weight: 600; /* Slightly lighter for a cleaner look */
+  font-size: 0.95rem; /* Slightly smaller for a refined look */
+  color: #333333; /* Darker shade for better readability */
+}
+
+.inputContainer {
+  position: relative;
+  width: 100%;
+}
+
+.icon {
+  position: absolute;
+  left: 12px; /* More balanced icon positioning */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9900ff;
+  font-size: 1.1rem; /* Slightly larger icon size for emphasis */
+  pointer-events: none;
+}
+
+input {
+  border-radius: 6px; /* Slightly more rounded for modern look */
+  border: 1px solid #dddddd;
+  outline: none;
+  padding: 10px 15px;
+  padding-left: 42px; /* Adjusted to fit icon */
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  padding-left: 45px;
+   /* Smooth transition on focus */
+}
+
+input:hover {
+  border-color: #cccccc; /* Subtle change on hover */
+}
+
+input:focus {
+  border-color: #9900ff;
+  box-shadow: 0 0 5px rgba(153, 0, 255, 0.2); /* Soft glow on focus */
+}
+
+input::placeholder {
+  color: #a5a5a5; /* Muted color for placeholder */
+  opacity: 1;
+}
+.inputError {
+  border-color: #ff3300;
+  box-shadow: 0 0 5px rgba(255, 51, 0, 0.2);
+}

@@ -1,0 +1,57 @@
+.Background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-image: url('E:\React native course\cropcast-app\src\Images\background.jpg'); */
+    background-color: rgba(152, 252, 121, 0.817);
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px);
+    z-index: -1;
+}
+
+.box {
+
+    background-color: whitesmoke;
+    width: 80%;
+    margin: auto;
+    margin-top: 1.5rem;
+    border-radius: 20px;
+    height: 100%;
+    bottom: 0;
+
+}
+
+img {
+    border-radius: 10px;
+}
+
+.info {
+    text-align: left;
+    margin: 20px;
+    justify-content: space-between;
+}
+
+.span {
+    margin-left: 85%;
+    padding: 9px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 0px 0px 10px 10px;
+    margin-right: 5%;
+    margin-top: 10px;
+    background-color: rgba(152, 252, 121, 0.817);
+
+}
+
+.span a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.span:hover {
+    outline: 2px solid rgba(78, 243, 28, 0.817);
+
+}

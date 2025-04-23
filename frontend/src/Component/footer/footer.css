@@ -1,0 +1,36 @@
+.footer {
+    background-color: #e0c96d;
+
+    /* Dark background */
+    color: white;
+    /* White text */
+    text-align: center;
+    /* Center-align text */
+    padding: 70px 0;
+    /* Add some padding */
+    position: fixed;
+    /* Fix the footer at the bottom */
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    /* Full width */
+    font-family: 'Arial', sans-serif;
+    /* Consistent font */
+    font-size: 14px;
+    /* Small font size */
+    position: relative;
+    opacity: 0.9;
+
+}
+
+.footer a {
+    color: #1abc9c;
+    /* Highlight links with a green color */
+    text-decoration: none;
+    /* Remove underline from links */
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    /* Add underline on hover */
+}
