@@ -24,7 +24,7 @@ const PhoneLogin = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('http://localhost:5000/api/send-verification', {
+      const response = await axios.post('http://localhost:5001/api/send-verification', {
         phoneNumber: `+91${phoneNumber}`
       });
       if (response.data?.success) {
@@ -45,7 +45,7 @@ const PhoneLogin = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('http://localhost:5000/api/verify-code', {
+      const response = await axios.post('http://localhost:5001/api/verify-code', {
         phoneNumber: `+91${phoneNumber}`,
         code
       });

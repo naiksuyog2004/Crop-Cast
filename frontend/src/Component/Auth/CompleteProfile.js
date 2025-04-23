@@ -36,7 +36,7 @@ const CompleteProfile = () => {
     if (!userId) return setError('User ID not found');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/complete-profile', {
+      const response = await axios.post('http://localhost:5001/api/complete-profile', {
         userId, username, password, firstName, lastName, crop, district
       });
 
