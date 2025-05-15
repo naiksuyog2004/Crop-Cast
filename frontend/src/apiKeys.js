@@ -1,4 +1,4 @@
 module.exports = {
-    key: "d538f7fcb4f141cba81131803252304",
+    key: "060390bdc73d4e809d952104250905",
     base: "https://api.weatherapi.com/v1/",
 };

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { setUser } from '../../utils/auth';
 
 const crops = ['Wheat', 'Rice', 'Jowar', 'Bajra', 'Tur', 'Gram', 'Soybean', 'Sugarcane', 'Cotton'];
-const districts = ['Mumbai', 'Pune', 'Nagpur', 'Nashik', 'Aurangabad', 'Solapur', 'Amravati', 'Kolhapur', 'Satara'];
+const districts = ['Alibag', 'Mumbai', 'Pune', 'Nagpur', 'Nashik', 'Aurangabad', 'Solapur', 'Amravati', 'Kolhapur', 'Satara'];
 
 const CompleteProfile = () => {
   const [formData, setFormData] = useState({

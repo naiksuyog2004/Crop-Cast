@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = ({ Login, handleAuth, name }) => {
     const [showDropdown, setShowDropdown] = useState(false);
-
+    console.log(name);
     const openOption = () => {
         setShowDropdown((prev) => !prev);
     };
@@ -70,7 +70,7 @@ const Navbar = ({ Login, handleAuth, name }) => {
                             }}
                             onClick={() => handleOptionClick("Profile")}
                         >
-                            <Link style={{ color: 'inherit', textDecoration: 'none' }} to={"/userform"}>Profile</Link>
+                            <Link style={{ color: 'inherit', textDecoration: 'none' }} to={"/dashboard"}>Profile</Link>
                         </li>
                         <li
                             style={{

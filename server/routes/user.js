@@ -31,5 +31,38 @@ router.get('/user', authenticate, async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
+router.put('/profile/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const updatedData = req.body;
 
+        const updatedUser = await User.findByIdAndUpdate(userId, updatedData, { new: true }); // Update user in MongoDB
+        if (!updatedUser) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        res.json({ success: true, user: updatedUser }); // Return the updated user data
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+//change
+// Fetch crop data for the logged-in user
+router.get('/get-crop', async (req, res) => {
+    const { user_id } = req.query; // Assuming user_id is passed as a query parameter
+
+    try {
+        // Find user in the database
+        const user = await User.findById(user_id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Return crop data
+        res.json({ crop: user.crop || 'No crop data found' });
+    } catch (err) {
+        res.status(500).json({ error: 'Server error' });
+    }
+});
 module.exports = router;

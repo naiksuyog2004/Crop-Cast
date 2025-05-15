@@ -98,12 +98,21 @@ router.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
     const user = await User.findOne({ username });
-    if (!user) return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
 
-    res.json({ success: true, user });
+    res.json({
+      success: true,
+      userId: user._id,
+      username: user.username,
+      crop: user.crop || 'No crop data found',//change
+    });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

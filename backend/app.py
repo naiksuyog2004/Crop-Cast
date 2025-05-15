@@ -3,28 +3,30 @@ from twilio.rest import Client
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import numpy as np
-
+from pymongo import MongoClient
+from bson import ObjectId
+# from flask_babel import Babel, _
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Define ideal conditions for crops
 ideal_conditions = {
-    'rice': {
+    'Rice': {
         'temp_range': (20, 35),
         'humidity_range': (70, 90),
         'rainfall_mm': (100, 200)
     },
-    'wheat': {
+    'Wheat': {
         'temp_range': (10, 25),
         'humidity_range': (50, 60),
         'rainfall_mm': (75, 125)
     },
-    'maize': {
+    'Maize': {
         'temp_range': (18, 27),
         'humidity_range': (60, 70),
         'rainfall_mm': (50, 100)
     },
-    'cotton': {
+    'Cotton': {
         'temp_range': (21, 30),
         'humidity_range': (50, 70),
         'rainfall_mm': (50, 80)
@@ -60,22 +62,22 @@ def check_crop_suitability(crop, forecast_data):
 def suggest_precautions(crop, day):
     precautions = []
 
-    if crop == "cotton":
+    if crop == "cotton" or crop == "Cotton":
         if day['avg_temp'] < 21 or day['avg_temp'] > 30:
             precautions.append("⚠️ Cotton may struggle with temperatures outside 21-30°C. Consider providing shade or irrigation if needed.")
         if day['rainfall'] < 50:
-            precautions.append("⚠️ Insufficient rainfall. Irrigation might be required.")
-    elif crop == "rice":
+            precautions.append("⚠️ Cotton Insufficient rainfall. Irrigation might be required.")
+    elif crop == "rice" or crop == "Rice":
         if day['avg_temp'] < 20 or day['avg_temp'] > 35:
             precautions.append("⚠️ Rice may not thrive outside of the 20-35°C range. Monitor water levels closely.")
         if day['rainfall'] < 100:
             precautions.append("⚠️ Rice needs more rainfall for optimal growth. Ensure adequate water supply.")
-    elif crop == "wheat":
+    elif crop == "wheat" or crop == "Wheat":
         if day['avg_temp'] < 10 or day['avg_temp'] > 25:
             precautions.append("⚠️ Wheat is sensitive to temperatures outside 10-25°C. Protect from frost or excessive heat.")
         if day['rainfall'] < 75:
             precautions.append("⚠️ Wheat needs moderate rainfall. If rainfall is insufficient, consider irrigation.")
-    elif crop == "maize":
+    elif crop == "maize" or crop == "Maize":
         if day['avg_temp'] < 18 or day['avg_temp'] > 27:
             precautions.append("⚠️ Maize prefers temperatures between 18-27°C. Protect from frost or extreme heat.")
         if day['rainfall'] < 50:
@@ -87,12 +89,13 @@ def suggest_precautions(crop, day):
 def home():
     return "Backend is running!"
 
-@app.route('/api/predict', methods=['POST'])
-def predict():
+# @app.route('/api/predict', methods=['POST'])
+# def predict():
     data = request.json
     forecast = data.get('forecast', [])
-    crop = data.get('crop', 'rice')  # Default crop is rice
-
+   
+    
+    crop = data.get('crop', 'cotton')  # Default crop is rice
     # Transform the forecast data
     transformed_forecast = []
     for day in forecast:
@@ -114,6 +117,53 @@ def predict():
 
     return jsonify({'results': suitability_results})
 
+
+# MongoDB connection setup
+MONGO_URI = "mongodb://127.0.0.1:27017"  # Replace with your MongoDB URI
+client = MongoClient(MONGO_URI)
+db = client['test']  # Replace with your database name
+users_collection = db['users']  # Replace with your users collection name
+
+@app.route('/api/predict', methods=['POST'])
+
+
+def predict():
+    data = request.json
+    print("Received data:", data)  # ✅ Log the full request body
+
+    user_id = data.get('userId')
+    print("Received userId:", user_id)
+
+    forecast = data.get('forecast', [])
+
+    try:
+        user = users_collection.find_one({"_id": ObjectId(user_id)})
+        print("User document from DB:", user)
+        crop = user.get('crop', 'cotton') if user else 'cotton'
+        print("Crop:", crop)
+    except Exception as e:
+        print("Error fetching user:", e)
+        crop = 'cotton'
+
+    # Transform the forecast data
+    transformed_forecast = []
+    for day in forecast:
+        transformed_forecast.append({
+            "date": day["date"],
+            "avg_temp": day["day"]["avgtemp_c"],
+            "humidity": day["day"]["avghumidity"],
+            "rainfall": day["day"]["totalprecip_mm"]
+        })
+
+    # Check crop suitability (make sure this returns list of dicts)
+    suitability_results = check_crop_suitability(crop, transformed_forecast)
+
+    # Add precautions to each day's result
+    for day in suitability_results:
+        if isinstance(day, dict):
+            day['precautions'] = suggest_precautions(crop, day)
+
+    return jsonify({'results': suitability_results})
 
 #twilio SMS system
 # Twilio credentials (replace with your actual credentials)
@@ -209,5 +259,23 @@ def send_prediction():
     send_sms(phone_number, message)
 
     return jsonify({'message': 'Prediction sent successfully!'})
+@app.route('/api/get-district', methods=['POST'])
+def get_district():
+    data = request.json
+    user_id = data.get('userId')
+
+    if not user_id:
+        return jsonify({'error': 'userId is required'}), 400
+
+    try:
+        user = users_collection.find_one({"_id": ObjectId(user_id)})
+        if user and 'district' in user:
+            return jsonify({'district': user['district']})
+        else:
+            return jsonify({'error': 'District not found for user'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True)
+

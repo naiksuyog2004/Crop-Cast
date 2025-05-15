@@ -52,10 +52,16 @@ const PhoneLogin = () => {
 
       if (response.data?.success) {
         const { userId, hasPassword, user } = response.data;
+
+        // Store user details in localStorage
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('username', user.username); // Store username
         setUser(user);
 
+        console.log("User authenticated. Username stored:", user.username);
+
         if (hasPassword) {
-          navigate('/dashboard');
+          navigate('/');
         } else {
           navigate('/complete-profile', { state: { userId } });
         }

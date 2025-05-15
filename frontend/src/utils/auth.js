@@ -1,4 +1,3 @@
-// src/utils/auth.js
 
 // Save user to localStorage
 export const setUser = (userData) => {

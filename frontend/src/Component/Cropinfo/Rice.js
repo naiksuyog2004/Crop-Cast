@@ -1,6 +1,6 @@
 import React from 'react'
 import '../Cropinfo/page.css'
-import { rice } from '../../Info/Rice'
+
 import { Link } from 'react-router-dom'
 export default function Rice() {
     return (
