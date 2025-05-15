@@ -20,7 +20,6 @@ const Navbar = ({ Login, handleAuth, name }) => {
                 <ul>
                     <li><Link to="/">Home</Link></li>
                     <li><Dropdown /></li>
-                    <li>location</li>
                     <li><Link to="/about">About Us</Link></li>
                     <li>
                         <Link

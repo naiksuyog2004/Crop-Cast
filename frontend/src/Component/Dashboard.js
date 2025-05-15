@@ -3,14 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { removeUser, setUser } from '../utils/auth';
 import axios from 'axios';
 import './Dashboard.css';
+import cities from './Maharashtra-Cities/maharashtraCities.json';
 const crops = ['Wheat', 'Rice', 'Jowar', 'Bajra', 'Tur', 'Gram', 'Soybean', 'Sugarcane', 'Cotton'];
-const districts = ['Alibag', 'Mumbai', 'Pune', 'Nagpur', 'Nashik', 'Aurangabad', 'Solapur', 'Amravati', 'Kolhapur', 'Satara'];
+
 
 const Dashboard = () => {
   const [user, setUserState] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
+  const [districts] = useState(cities.cities);
+  const [showAllDistricts, setShowAllDistricts] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -46,7 +49,9 @@ const Dashboard = () => {
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
+  const handleSeeMore = () => {
+    setShowAllDistricts(true);
+  };
   const handleUpdate = async () => {
     try {
       const response = await axios.put(`http://localhost:5001/api/profile/${user._id}`, formData); // Update user data in MongoDB
@@ -84,8 +89,8 @@ const Dashboard = () => {
                 <option value="">Select Crop</option>
                 {crops.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
-              <select name="district" value={formData.district || ''} onChange={handleChange}>
-                <option value="">Select District</option>
+              <select name="city" value={formData.district || ''} onChange={handleChange}>
+                <option value="">Select nearest city</option>
                 {districts.map(d => <option key={d} value={d}>{d}</option>)}
               </select>
               <button onClick={handleUpdate}>Save</button>
@@ -96,7 +101,7 @@ const Dashboard = () => {
               <p><strong>Last Name:</strong> {user.lastName}</p>
               <p><strong>Username:</strong> {user.username}</p>
               <p><strong>Crop:</strong> {user.crop}</p>
-              <p><strong>District:</strong> {user.district}</p>
+              <p><strong>City:</strong> {user.district}</p>
               <button onClick={() => setEditMode(true)}>Edit</button>
             </>
           )}

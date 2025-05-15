@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { setUser } from '../../utils/auth';
+import cities from '../Maharashtra-Cities/maharashtraCities.json'; // Adjust the path as needed
 
 const crops = ['Wheat', 'Rice', 'Jowar', 'Bajra', 'Tur', 'Gram', 'Soybean', 'Sugarcane', 'Cotton'];
-const districts = ['Alibag', 'Mumbai', 'Pune', 'Nagpur', 'Nashik', 'Aurangabad', 'Solapur', 'Amravati', 'Kolhapur', 'Satara'];
 
 const CompleteProfile = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +16,7 @@ const CompleteProfile = () => {
     crop: '',
     district: ''
   });
+  const [districts] = useState(cities.cities); // Use the imported JSON
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();

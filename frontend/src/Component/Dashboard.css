@@ -63,6 +63,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+
 }
 
 .profile-info input:focus,
@@ -75,6 +76,8 @@
     width: 100%;
     margin-top: 15px;
 }
+
+
 
 @media (max-width: 768px) {
     .dashboard {
