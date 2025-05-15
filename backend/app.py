@@ -167,9 +167,9 @@ def predict():
 
 #twilio SMS system
 # Twilio credentials (replace with your actual credentials)
-# TWILIO_ACCOUNT_SID = 'AC74d3234c1b27da3f53a19340e214c05f'
-# TWILIO_AUTH_TOKEN = '33b78e74d180fd56a28dc7c4c6ab113b'
-# TWILIO_PHONE_NUMBER = '+17756287044'
+TWILIO_ACCOUNT_SID = 'AC74d3234c1b27da3f53a19340e214c05f'
+TWILIO_AUTH_TOKEN = '33b78e74d180fd56a28dc7c4c6ab113b'
+TWILIO_PHONE_NUMBER = '+17756287044'
 
 def send_sms(to_phone_number, message):
     client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
