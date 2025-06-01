@@ -4,7 +4,7 @@ import { removeUser, setUser } from '../utils/auth';
 import axios from 'axios';
 import './Dashboard.css';
 import cities from './Maharashtra-Cities/maharashtraCities.json';
-const crops = ['Wheat', 'Rice', 'Jowar', 'Bajra', 'Tur', 'Gram', 'Soybean', 'Sugarcane', 'Cotton'];
+const crops = ['Wheat', 'Rice', 'Maize', 'Jowar', 'Bajra', 'Tur', 'Gram', 'Soybean', 'Sugarcane', 'Cotton'];
 
 
 const Dashboard = () => {

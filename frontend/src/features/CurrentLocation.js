@@ -262,16 +262,7 @@ class Weather extends Component {
                     </div>
                 </div>
                 {this.renderForecast()}
-                <button
-                    onClick={() => {
-                        const phoneNumber = prompt("Enter the phone number to send the prediction:");
-                        if (phoneNumber) {
-                            this.sendPredictionToUser(phoneNumber);
-                        }
-                    }}
-                >
-                    Send Prediction via SMS
-                </button>
+
                 {this.renderWeatherForecast()}
             </div>
         );

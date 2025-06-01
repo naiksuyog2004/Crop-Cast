@@ -57,7 +57,7 @@ const PhoneLogin = () => {
         localStorage.setItem('userId', userId);
         localStorage.setItem('username', user.username); // Store username
         setUser(user);
-
+        localStorage.setItem("isLoggedIn", "true");
         console.log("User authenticated. Username stored:", user.username);
 
         if (hasPassword) {

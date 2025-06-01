@@ -4,7 +4,7 @@ import axios from 'axios';
 import { setUser } from '../../utils/auth';
 import cities from '../Maharashtra-Cities/maharashtraCities.json'; // Adjust the path as needed
 
-const crops = ['Wheat', 'Rice', 'Jowar', 'Bajra', 'Tur', 'Gram', 'Soybean', 'Sugarcane', 'Cotton'];
+const crops = ['Wheat', 'Rice', 'Maize', 'Jowar', 'Bajra', 'Tur', 'Gram', 'Soybean', 'Sugarcane', 'Cotton'];
 
 const CompleteProfile = () => {
   const [formData, setFormData] = useState({

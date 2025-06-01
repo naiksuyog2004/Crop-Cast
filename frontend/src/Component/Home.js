@@ -1,17 +1,31 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import Weather from '../features/CurrentLocation';
 import Footer from './footer/footer';
 import Navbar from './Navbar/Navbar';
-
+import { useNavigate } from 'react-router-dom';
 const Home = ({ name }) => {
-    const [Login, setLogin] = useState(true);
+    const [Login, setLogin] = useState(false);
     const [forecast, setForecast] = useState([]);
     const [weatherNow, setWeatherNow] = useState(null);
-    // console.log(district);
+    const navigate = useNavigate();
+    useEffect(() => {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        setLogin(isLoggedIn);
+    }, []);
+
     const handleAuth = () => {
-        setLogin(!Login);
+        if (Login) {
+
+            localStorage.removeItem("isLoggedIn");
+            setLogin(false);
+            navigate("/login", { replace: true });
+        } else {
+
+            localStorage.setItem("isLoggedIn", "true");
+            setLogin(true);
+        }
     };
 
     return (

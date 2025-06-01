@@ -24,7 +24,7 @@ const UsernameLogin = () => {
         localStorage.setItem('userId', userId);
         localStorage.setItem('username', username);
         localStorage.setItem('user', JSON.stringify(user)); // Store the full user object
-
+        localStorage.setItem("isLoggedIn", "true");
         setUser(user); // Save the full user object globally if needed
         console.log("User authenticated. Full user object stored:", user);
 
