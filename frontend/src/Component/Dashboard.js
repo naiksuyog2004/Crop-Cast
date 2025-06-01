@@ -89,7 +89,7 @@ const Dashboard = () => {
                 <option value="">Select Crop</option>
                 {crops.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
-              <select name="city" value={formData.district || ''} onChange={handleChange}>
+              <select name="district" value={formData.district || ''} onChange={handleChange}>
                 <option value="">Select nearest city</option>
                 {districts.map(d => <option key={d} value={d}>{d}</option>)}
               </select>

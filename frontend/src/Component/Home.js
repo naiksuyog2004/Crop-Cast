@@ -13,7 +13,10 @@ const Home = ({ name }) => {
     useEffect(() => {
         const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
         setLogin(isLoggedIn);
-    }, []);
+        if (!isLoggedIn) {
+            navigate("/login", { replace: true });
+        }
+    }, [navigate]);
 
     const handleAuth = () => {
         if (Login) {
