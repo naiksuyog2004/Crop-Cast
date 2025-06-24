@@ -10,12 +10,12 @@ from flask_cors import CORS
 import numpy as np
 from pymongo import MongoClient
 from bson import ObjectId
-# from flask_babel import Babel, _
+
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)  
 
 
-# Ideal conditions with monthly crop phases
+
 def get_ideal_conditions():
     return {
         'Rice': {
@@ -52,7 +52,7 @@ def get_ideal_conditions():
         }
     }
 
-# Main crop suitability checker
+
 def check_crop_suitability(crop, forecast_data):
     ideal = get_ideal_conditions()
     crop_data = ideal.get(crop)
@@ -97,34 +97,7 @@ def check_crop_suitability(crop, forecast_data):
     return result
 
 
-# Function to suggest precautions
-# def suggest_precautions(crop, day):
-#     precautions = []
 
-#     if crop == "cotton" or crop == "Cotton":
-#         if day['avg_temp'] < 21 or day['avg_temp'] > 30:
-#             precautions.append("⚠️ Cotton may struggle with temperatures outside 21-30°C. Consider providing shade or irrigation if needed.")
-#         if day['rainfall'] < 50:
-#             precautions.append("⚠️ Cotton Insufficient rainfall. Irrigation might be required.")
-#     elif crop == "rice" or crop == "Rice":
-#         if day['avg_temp'] < 20 or day['avg_temp'] > 35:
-#             precautions.append("⚠️ Rice may not thrive outside of the 20-35°C range. Monitor water levels closely.")
-#         if day['rainfall'] < 100:
-#             precautions.append("⚠️ Rice needs more rainfall for optimal growth. Ensure adequate water supply.")
-#     elif crop == "wheat" or crop == "Wheat":
-#         if day['avg_temp'] < 10 or day['avg_temp'] > 25:
-#             precautions.append("⚠️ Wheat is sensitive to temperatures outside 10-25°C. Protect from frost or excessive heat.")
-#         if day['rainfall'] < 75:
-#             precautions.append("⚠️ Wheat needs moderate rainfall. If rainfall is insufficient, consider irrigation.")
-#     elif crop == "maize" or crop == "Maize":
-#         if day['avg_temp'] < 18 or day['avg_temp'] > 27:
-#             precautions.append("⚠️ Maize prefers temperatures between 18-27°C. Protect from frost or extreme heat.")
-#         if day['rainfall'] < 50:
-#             precautions.append("⚠️ Insufficient rainfall. Consider irrigation if needed.")
-
-#     return precautions
-
-# Function to suggest precautions
 def suggest_precautions(crop, day):
     precautions = []
     ideal = get_ideal_conditions()
@@ -132,7 +105,7 @@ def suggest_precautions(crop, day):
     if not crop_data or 'phases' not in crop_data:
         return precautions
 
-    # Extract month from date
+    
     try:
         month = datetime.strptime(day['date'], "%Y-%m-%d").strftime("%B")
     except Exception:
@@ -152,7 +125,7 @@ def suggest_precautions(crop, day):
     temp_min, temp_max = phase_cond['temp']
     rain_min, rain_max = phase_cond['rainfall']
 
-    # Temperature precautions
+    
     if day['avg_temp'] < temp_min:
         precautions.append(
             f"⚠️ {crop} ({phase_name.title()} phase): Temperature is below ideal ({temp_min}-{temp_max}°C). Protect from cold, consider delayed sowing or use of mulch."
@@ -162,7 +135,7 @@ def suggest_precautions(crop, day):
             f"⚠️ {crop} ({phase_name.title()} phase): Temperature is above ideal ({temp_min}-{temp_max}°C). Provide shade, irrigation, or mulching to reduce heat stress."
         )
 
-    # Rainfall precautions
+  
     if day['rainfall'] < rain_min:
         precautions.append(
             f"⚠️ {crop} ({phase_name.title()} phase): Rainfall is below ideal ({rain_min}-{rain_max}mm). Consider supplemental irrigation or moisture conservation."
@@ -172,7 +145,7 @@ def suggest_precautions(crop, day):
             f"⚠️ {crop} ({phase_name.title()} phase): Rainfall is above ideal ({rain_min}-{rain_max}mm). Ensure proper drainage to prevent waterlogging and root diseases."
         )
 
-    # General phase-specific advice (optional, can be expanded)
+  
     if phase_name == "sowing":
         precautions.append(f"ℹ️ {crop} ({phase_name.title()} phase): Ensure good seed quality and proper soil preparation.")
     elif phase_name == "vegetative":
@@ -189,42 +162,16 @@ def suggest_precautions(crop, day):
 def home():
     return "Backend is running!"
 
-# @app.route('/api/predict', methods=['POST'])
-# def predict():
-#     data = request.json
-#     forecast = data.get('forecast', [])
-   
-    
-#     crop = data.get('crop', 'cotton')  # Default crop is rice
-#     # Transform the forecast data
-#     transformed_forecast = []
-#     for day in forecast:
-#         transformed_forecast.append({
-#             "date": day["date"],
-#             "avg_temp": day["day"]["avgtemp_c"],
-#             "humidity": day["day"]["avghumidity"],
-#             "rainfall": day["day"]["totalprecip_mm"]
-#         })
 
-#     print("Transformed forecast data:", transformed_forecast)  # Debugging log
 
-#     # Check crop suitability
-#     suitability_results = check_crop_suitability(crop, transformed_forecast)
-
-#     # Add precautions to each day's result
-#     for day in suitability_results:
-#         day['precautions'] = suggest_precautions(crop, day)
-
-#     return jsonify({'results': suitability_results})
-
-FAST2SMS_API_KEY = 'RFPJGntf52Dzu4ic3EbpqrYg8IAdNmj9KUZ7Ca1HwVxv6TeQMLOmveE2IF3abPT8xygiBK0n7AMuRJz6'  # Replace with your actual Fast2SMS API Key
+FAST2SMS_API_KEY = 'RFPJGntf52Dzu4ic3EbpqrYg8IAdNmj9KUZ7Ca1HwVxv6TeQMLOmveE2IF3abPT8xygiBK0n7AMuRJz6'  
 FAST2SMS_URL = "https://www.fast2sms.com/dev/bulkV2"
 
-# MongoDB connection setup
-MONGO_URI = "mongodb://127.0.0.1:27017"  # Replace with your MongoDB URI
+
+MONGO_URI = "mongodb://127.0.0.1:27017" 
 client = MongoClient(MONGO_URI)
-db = client['test']  # Replace with your database name
-users_collection = db['users']  # Replace with your users collection name
+db = client['test']  
+users_collection = db['users']  
 
 @app.route('/api/predict', methods=['POST'])
 
@@ -247,7 +194,7 @@ def predict():
         print("Error fetching user:", e)
         crop = 'cotton'
 
-    # Transform the forecast data
+
     transformed_forecast = []
     for day in forecast:
         transformed_forecast.append({
@@ -257,79 +204,31 @@ def predict():
             "rainfall": day["day"]["totalprecip_mm"]
         })
 
-    # Check crop suitability (make sure this returns list of dicts)
+
     suitability_results = check_crop_suitability(crop, transformed_forecast)
 
-    # Add precautions to each day's result
+
     for day in suitability_results:
         if isinstance(day, dict):
             day['precautions'] = suggest_precautions(crop, day)
 
     return jsonify({'results': suitability_results})
 
-# #twilio SMS system
-# # Twilio credentials (replace with your actual credentials)
-# TWILIO_ACCOUNT_SID = 'AC74d3234c1b27da3f53a19340e214c05f'
-# TWILIO_AUTH_TOKEN = '33b78e74d180fd56a28dc7c4c6ab113b'
-# TWILIO_PHONE_NUMBER = '+17756287044'
-
-# def send_sms(to_phone_number, message):
-#     client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-#     try:
-#         message = client.messages.create(
-#             body=message,
-#             from_=TWILIO_PHONE_NUMBER,
-#             to=to_phone_number
-#         )
-#         print(f"Message sent successfully: {message.sid}")
-#     except Exception as e:
-#         print(f"Failed to send message: {e}")
-
-# @app.route('/api/send-prediction', methods=['POST'])
-# def send_prediction():
-#     data = request.json
-#     phone_number = data.get('phone_number')  # User's phone number
-#     prediction = data.get('prediction')  # Prediction data
-
-#     if not phone_number or not prediction:
-#         return jsonify({'error': 'Phone number and prediction are required'}), 400
-
-#     # Limit the number of days to include in the message (e.g., 3 days)
-#     max_days = 1
-#     limited_prediction = prediction[:max_days]
-
-#     # Format the prediction message (only suitability status)
-#     message = "🌾 Crop Suitability Prediction:\n"
-#     for day in limited_prediction:
-#         date = day.get('date', 'Unknown Date')
-#         status = day.get('status', 'Unknown Status')
-#         message += f"- {date}: {status}\n"
-
-#     # Add a note if the message was truncated
-#     if len(prediction) > max_days:
-#         message += "\n...and more days. Check the app for full details."
-
-#     # Send the SMS
-#     send_sms(phone_number, message)
-
-#     return jsonify({'message': 'Prediction sent successfully!'})
-
-
 ## auto message sender 
 # @app.route('/api/send-prediction', methods=['POST'])
 # def send_prediction():
 #     data = request.json
-#     phone_number = data.get('phone_number')  # User's phone number
-#     prediction = data.get('prediction')  # Prediction data
+#     phone_number = data.get('phone_number') 
+#     prediction = data.get('prediction')  
 
 #     if not phone_number or not prediction:
 #         return jsonify({'error': 'Phone number and prediction are required'}), 400
 
-#     # Limit the number of days to include in the message (e.g., 3 days)
+#     # Limit the number of days to include in the message
 #     max_days = 1
 #     limited_prediction = prediction[:max_days]
 
-#     # Format the prediction message (only suitability status)
+#    
 #     message = "🌾 Crop Suitability Prediction:\n"
 #     extreme_conditions_detected = False
 
@@ -339,7 +238,7 @@ def predict():
 #         avg_temp = day.get('avg_temp', 0)
 #         rainfall = day.get('rainfall', 0)
 
-#         # Check for extreme weather conditions
+#         
 #         if avg_temp > 40 or avg_temp < 5:
 #             extreme_conditions_detected = True
 #             message += f"- {date}: {status} (⚠️ Extreme Temperature: {avg_temp}°C)\n"
@@ -349,11 +248,11 @@ def predict():
 #         else:
 #             message += f"- {date}: {status}\n"
 
-#     # Add a note if the message was truncated
+#    
 #     if len(prediction) > max_days:
 #         message += "\n...and more days. Check the app for full details."
 
-#     # Add an alert if extreme conditions were detected
+#     
 #     if extreme_conditions_detected:
 #         message += "\n⚠️ Extreme weather conditions detected. Take necessary precautions!"
 
@@ -361,6 +260,7 @@ def predict():
 #     send_sms(phone_number, message)
 
 #     return jsonify({'message': 'Prediction sent successfully!'})
+
 @app.route('/api/get-district', methods=['POST'])
 def get_district():
     data = request.json
@@ -381,9 +281,7 @@ def get_district():
 WEATHER_API_KEY = "060390bdc73d4e809d952104250905"  
 
 def fetch_weather_for_city(city_name):
-    """
-    Fetches weather data for a given city using WeatherAPI.
-    """
+    
     print(f"Fetching weather for {city_name}...")
     try:
         url = f"http://api.weatherapi.com/v1/forecast.json"
@@ -405,13 +303,11 @@ def fetch_weather_for_city(city_name):
         }
     except Exception as e:
         print(f"Error fetching weather for {city_name}: {e}")
-        # Return None or fallback values if needed
+        
         return None
     
 def send_fast2sms_alert(phone_numbers_str, message_body):
-    """
-    Sends an SMS using Fast2SMS API.
-    """
+    
     if not FAST2SMS_API_KEY or FAST2SMS_API_KEY ==  'YOUR_FAST2SMS_API_KEY':
         print("Error: Fast2SMS API Key not configured. SMS not sent.")
         return
@@ -439,9 +335,7 @@ def send_fast2sms_alert(phone_numbers_str, message_body):
         print(f"An unexpected error occurred during SMS sending: {e}")
 
 def check_weather_and_send_alerts():
-    """
-    Checks weather for all unique user cities and sends alerts for extreme conditions.
-    """
+    
     print(f"\nRunning weather check at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     try:
         distinct_cities = users_collection.distinct("district")
@@ -522,55 +416,55 @@ def run_scheduler():
         schedule.run_pending()
         time.sleep(60)
 
-# Start the scheduler in a background thread when the Flask app starts
+
 def start_scheduler():
     scheduler_thread = threading.Thread(target=run_scheduler, daemon=True)
     scheduler_thread.start()
 
 
-@app.route('/api/send-prediction', methods=['POST'])
-def send_prediction():
-    data = request.json
-    phone_number = data.get('phone_number')
-    prediction = data.get('prediction') 
+# @app.route('/api/send-prediction', methods=['POST'])
+# def send_prediction():
+#     data = request.json
+#     phone_number = data.get('phone_number')
+#     prediction = data.get('prediction') 
 
-    if not phone_number or not prediction:
-        return jsonify({'error': 'Phone number and prediction are required'}), 400
+#     if not phone_number or not prediction:
+#         return jsonify({'error': 'Phone number and prediction are required'}), 400
 
-    max_days = 3
-    limited_prediction = prediction[:max_days]
+#     max_days = 3
+#     limited_prediction = prediction[:max_days]
 
-    message = "🌾 Crop Suitability Prediction:\n"
-    extreme_conditions_detected = False
+#     message = "🌾 Crop Suitability Prediction:\n"
+#     extreme_conditions_detected = False
 
-    for day in limited_prediction:
-        date = day.get('date', 'Unknown Date')
-        status = day.get('status', 'Unknown Status')
-        avg_temp = day.get('avg_temp', 0)
-        rainfall = day.get('rainfall', 0)
+#     for day in limited_prediction:
+#         date = day.get('date', 'Unknown Date')
+#         status = day.get('status', 'Unknown Status')
+#         avg_temp = day.get('avg_temp', 0)
+#         rainfall = day.get('rainfall', 0)
 
-        # Check for extreme weather conditions
-        if avg_temp > 40 or avg_temp < 5:
-            extreme_conditions_detected = True
-            message += f"- {date}: {status} (⚠️ Extreme Temperature: {avg_temp}°C)\n"
-        elif rainfall > 300:
-            extreme_conditions_detected = True
-            message += f"- {date}: {status} (⚠️ Extreme Rainfall: {rainfall}mm)\n"
-        else:
-            message += f"- {date}: {status}\n"
+#         
+#         if avg_temp > 40 or avg_temp < 5:
+#             extreme_conditions_detected = True
+#             message += f"- {date}: {status} (⚠️ Extreme Temperature: {avg_temp}°C)\n"
+#         elif rainfall > 300:
+#             extreme_conditions_detected = True
+#             message += f"- {date}: {status} (⚠️ Extreme Rainfall: {rainfall}mm)\n"
+#         else:
+#             message += f"- {date}: {status}\n"
 
-    # Add a note if the message was truncated
-    if len(prediction) > max_days:
-        message += "\n...and more days. Check the app for full details."
+#     
+#     if len(prediction) > max_days:
+#         message += "\n...and more days. Check the app for full details."
 
-    # Add an alert if extreme conditions were detected
-    if extreme_conditions_detected:
-        message += "\n⚠️ Extreme weather conditions detected. Take necessary precautions!"
+#     # Add an alert if extreme conditions were detected
+#     if extreme_conditions_detected:
+#         message += "\n⚠️ Extreme weather conditions detected. Take necessary precautions!"
 
-    # Send the SMS (using your Twilio send_sms function)
-    send_sms(phone_number, message)
+#     
+#     send_sms(phone_number, message)
 
-    return jsonify({'message': 'Prediction sent successfully!'})
+#     return jsonify({'message': 'Prediction sent successfully!'})
 
 
 

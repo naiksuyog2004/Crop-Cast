@@ -1,15 +1,15 @@
 .about-us {
     background-color: #f9f9f9;
-    /* Light background */
+
     color: #333;
-    /* Dark text */
+
     padding: 20px;
     margin: 20px auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow */
+
     max-width: 800px;
-    /* Limit the width */
+
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
 
@@ -31,7 +31,7 @@
 .about-us h2,
 .about-us h3 {
     color: #2c3e50;
-    /* Darker headings */
+
 }
 
 .about-us ul {
@@ -41,7 +41,7 @@
 
 .about-us a {
     color: #1abc9c;
-    /* Highlight links with green */
+
     text-decoration: none;
 }
 

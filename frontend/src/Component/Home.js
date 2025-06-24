@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import Weather from '../features/CurrentLocation';
@@ -81,4 +80,3 @@ const Text = () => {
 };
 
 export default Home;
-

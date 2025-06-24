@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './InputControl.module.css';
- // Import your chosen icons
 
 function InputControl({ label, icon, ...props }) {
   return (

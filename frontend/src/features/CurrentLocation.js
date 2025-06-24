@@ -3,7 +3,7 @@ import './CurrentLocation.css';
 import React, { Component } from 'react';
 import Clock from 'react-live-clock';
 import ReactAnimatedWeather from 'react-animated-weather';
-import apiKeys from '../apiKeys'; // make sure base and key are set
+import apiKeys from '../apiKeys';
 
 const dateBuilder = (d) => {
     const months = [
@@ -41,8 +41,8 @@ class Weather extends Component {
         rainfall: null,
         loading: true,
         error: null,
-        forecast: [], // for next 7 days
-        mlPrediction: [], // for ML model prediction
+        forecast: [],
+        mlPrediction: [],
     };
 
     componentDidMount() {
@@ -60,7 +60,7 @@ class Weather extends Component {
 
 
     getLocation = async () => {
-        const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
+        const userId = localStorage.getItem('userId');
 
         if (!userId) {
             console.error("User ID not found in localStorage.");
@@ -69,7 +69,7 @@ class Weather extends Component {
         }
 
         try {
-            // Fetch district name from MongoDB via backend
+
             const response = await fetch('http://localhost:5000/api/get-district', {
                 method: 'POST',
                 headers: {
@@ -83,17 +83,17 @@ class Weather extends Component {
             if (response.ok && result.district) {
                 console.log("District fetched from DB:", result.district);
 
-                // Fetch weather data for the district
+
                 this.getWeatherByDistrict(result.district);
             } else {
                 console.error("Failed to fetch district:", result.error || "Unknown error");
                 this.setState({ error: "Failed to fetch district. Using default location." });
-                this.getWeatherByIP(); // Fallback to IP-based location
+                this.getWeatherByIP();
             }
         } catch (error) {
             console.error("Error fetching district:", error);
             this.setState({ error: "Error fetching district. Using default location." });
-            this.getWeatherByIP(); // Fallback to IP-based location
+            this.getWeatherByIP();
         }
     };
 
@@ -108,7 +108,7 @@ class Weather extends Component {
 
 
 
-    sendForecastToMLModel = async (forecast) => {
+    sendForecastToBackend = async (forecast) => {
         const userId = localStorage.getItem('userId');
         try {
             const response = await fetch('http://localhost:5000/api/predict', {
@@ -119,9 +119,9 @@ class Weather extends Component {
                 body: JSON.stringify({ userId, forecast }),
             });
             const result = await response.json();
-            console.log('ML Prediction:', result.results); // Debugging log
+            console.log('ML Prediction:', result.results);
 
-            // Ensure result.results is an array
+
             if (Array.isArray(result.results)) {
                 this.setState({ mlPrediction: result.results });
             } else {
@@ -130,40 +130,10 @@ class Weather extends Component {
             }
         } catch (error) {
             console.error('Error sending forecast to ML model:', error);
-            this.setState({ mlPrediction: [] }); // Set to empty array on error
+            this.setState({ mlPrediction: [] });
         }
     };
-    sendPredictionToUser = async (phoneNumber) => {
-        const { mlPrediction } = this.state;
 
-        if (!mlPrediction || mlPrediction.length === 0) {
-            alert("No prediction data available to send.");
-            return;
-        }
-
-        try {
-            const response = await fetch('http://localhost:5000/api/send-prediction', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    phone_number: phoneNumber,
-                    prediction: mlPrediction,
-                }),
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                alert(result.message);
-            } else {
-                alert(`Failed to send prediction: ${result.error}`);
-            }
-        } catch (error) {
-            console.error('Error sending prediction:', error);
-            alert('An error occurred while sending the prediction.');
-        }
-    };
     getWeatherByIP = async () => {
         try {
             const response = await fetch('http://api.ipstack.com/check?access_key=7Z8C1Ww0ncUintqmtWEMFVoi4aG05wQt');
@@ -172,14 +142,14 @@ class Weather extends Component {
             this.getWeather(data.latitude, data.longitude);
         } catch (error) {
             console.error("IP location error:", error);
-            this.getWeather(28.67, 77.22); // Fallback to default location
+            this.getWeather(28.67, 77.22);
         }
     };
 
 
     getWeatherByDistrict = async (district) => {
         try {
-            // Use the district name to fetch weather data
+
             const url = `${apiKeys.base}forecast.json?key=${apiKeys.key}&q=${district}&days=7&aqi=no&alerts=no`;
             const res = await fetch(url);
             const data = await res.json();
@@ -206,8 +176,8 @@ class Weather extends Component {
                 mlPrediction: [],
             });
 
-            // Send forecast to ML model
-            this.sendForecastToMLModel(forecast);
+
+            this.sendForecastToBackend(forecast);
         } catch (err) {
             console.error("Error fetching weather by district:", err);
             this.setState({ error: "Failed to fetch weather data", loading: false });

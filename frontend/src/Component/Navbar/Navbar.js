@@ -1,15 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import './Navbar.css';
 const Navbar = ({ Login, handleAuth, name }) => {
     const [showDropdown, setShowDropdown] = useState(false);
+    const [showName, setShowName] = useState(false);
+
     console.log(name);
     const openOption = () => {
         setShowDropdown((prev) => !prev);
+        setShowName((prev) => !prev);
     };
 
     const handleOptionClick = (option) => {
-        console.log(option); // Handle option click logic here
+        console.log(option);
         setShowDropdown(false);
     };
 
@@ -17,7 +20,7 @@ const Navbar = ({ Login, handleAuth, name }) => {
         <header className="header">
             <h1>🌾 Crop Cast</h1>
             <div className="nav-components">
-                <ul>
+                <ul style={{ marginRight: "400px" }}>
                     <li><Link to="/">Home</Link></li>
                     <li><Dropdown /></li>
                     <li><Link to="/about">About Us</Link></li>
@@ -32,19 +35,24 @@ const Navbar = ({ Login, handleAuth, name }) => {
                 </ul>
             </div>
 
-            <div className="search-container">
+            {/* <div className="search-container">
                 <input
                     type="text"
                     className="crop-input"
                     placeholder="Enter crop name..."
                 />
                 <button className="search-button">Check Weather</button>
-            </div>
+            </div> */}
 
             <div style={{ position: "relative" }}>
-                <button className="symbol" onClick={openOption}>
-                    {name && Login ? `${name}` : ""}
-                </button>
+                {Login && (
+                    <button className="symbol" onClick={openOption}>
+                        <span className="user-icon">👤</span>
+                        {showName && (
+                            <span className="user-initial">{name ? name[0].toUpperCase() + name.slice(1) : ""}</span>
+                        )}
+                    </button>
+                )}
 
                 {showDropdown && (
                     <ul

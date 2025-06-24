@@ -17,22 +17,22 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const userId = localStorage.getItem('userId'); // Retrieve user_id from localStorage
+      const userId = localStorage.getItem('userId');
       if (!userId) return navigate('/login'); // Redirect to login if no user_id is found
 
       try {
-        const response = await axios.get(`http://localhost:5001/api/profile/${userId}`); // Fetch user data from backend
+        const response = await axios.get(`http://localhost:5001/api/profile/${userId}`);
         if (response.data?.success) {
           const userData = response.data.user;
           setUserState(userData);
           setFormData(userData);
-          setUser(userData); // Save user data in localStorage
+          setUser(userData);
         } else {
-          navigate('/login'); // Redirect to login if user data is not found
+          navigate('/login');
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-        navigate('/login'); // Redirect to login on error
+        navigate('/login');
       }
     };
 
@@ -59,8 +59,8 @@ const Dashboard = () => {
         const updatedUser = response.data.user;
         setUser(updatedUser); // Update localStorage with the new user data
         setUserState(updatedUser); // Update the state with the new user data
-        setEditMode(false); // Exit edit mode
-        alert('Profile updated successfully!'); // Notify the user
+        setEditMode(false);
+        alert('Profile updated successfully!');
       } else {
         alert('Failed to update profile. Please try again.');
       }

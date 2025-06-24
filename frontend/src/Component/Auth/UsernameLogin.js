@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { setUser } from '../../utils/auth'; // Utility function to save user details
+import { setUser } from '../../utils/auth';
 
 const UsernameLogin = () => {
   const [username, setUsername] = useState('');
@@ -23,12 +23,12 @@ const UsernameLogin = () => {
         // Store user details in localStorage
         localStorage.setItem('userId', userId);
         localStorage.setItem('username', username);
-        localStorage.setItem('user', JSON.stringify(user)); // Store the full user object
+        localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem("isLoggedIn", "true");
-        setUser(user); // Save the full user object globally if needed
+        setUser(user);
         console.log("User authenticated. Full user object stored:", user);
 
-        // Navigate to the home page
+
         navigate('/');
         window.location.reload(); // Force App.js to reinitialize and fetch the username
       } else {

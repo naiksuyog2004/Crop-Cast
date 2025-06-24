@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { setUser } from '../../utils/auth';
-import './PhoneLogin.css'; // Assuming you have a CSS file for styling
+import './PhoneLogin.css';
 const PhoneLogin = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [code, setCode] = useState('');

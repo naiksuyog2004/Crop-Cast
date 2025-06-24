@@ -1,121 +1,119 @@
-/* Container for the authentication page */
 .auth-container1 {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    /* Full viewport height */
+
     background-color: #f4f4f9;
-    /* Light background color */
+
     padding: 20px;
 }
 
-/* Card styling for the form */
+
 .auth-card1 {
     background-color: #ffffff;
-    /* White background */
+
     border-radius: 10px;
-    /* Rounded corners */
+
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow */
+
     padding: 30px;
     width: 100%;
     max-width: 400px;
-    /* Limit the width */
+
     text-align: center;
-    /* Center-align text */
+
     font-family: 'Arial', sans-serif;
 }
 
-/* Form group styling */
+
 .form-group1 {
     margin-bottom: 20px;
     text-align: left;
-    /* Align labels and inputs to the left */
+
 }
 
-/* Label styling */
+
 .form-group1 label {
     display: block;
     font-weight: bold;
     margin-bottom: 8px;
     color: #333;
-    /* Dark text color */
+
 }
 
-/* Input field styling */
+
 .form-group1 input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    /* Light border */
+
     border-radius: 5px;
-    /* Rounded corners */
+
     font-size: 16px;
     box-sizing: border-box;
 }
 
-/* Input focus styling */
+
 .form-group1 input:focus {
     outline: none;
     border-color: #1abc9c;
-    /* Highlight border on focus */
+
     box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
-    /* Subtle glow */
+
 }
 
-/* Button styling */
+
 .auth-container1 button {
     background-color: #1abc9c;
-    /* Green background */
+
     color: white;
-    /* White text */
+
     border: none;
     border-radius: 5px;
-    /* Rounded corners */
+
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-/* Button hover effect */
+
 .auth-container1 button:hover {
     background-color: #16a085;
-    /* Darker green on hover */
+
 }
 
-/* Disabled button styling */
+
 .auth-container1 button:disabled {
     background-color: #ccc;
-    /* Gray background for disabled state */
+
     cursor: not-allowed;
 }
 
-/* Error message styling */
+
 .error-message1 {
     color: red;
     font-size: 14px;
     margin-top: 10px;
 }
 
-/* Countdown text styling */
 .auth-card1 p {
     margin-top: 10px;
     font-size: 14px;
     color: #555;
-    /* Subtle text color */
+
 }
 
-/* Link styling */
+
 .auth-card1 a {
     color: #1abc9c;
-    /* Green link color */
+
     text-decoration: none;
     font-weight: bold;
 }
 
 .auth-card1 a:hover {
     text-decoration: underline;
-    /* Underline on hover */
+
 }
